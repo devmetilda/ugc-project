@@ -3,6 +3,14 @@ import Home from './pages/Home';
 import SoftBackdrop from './components/SoftBackdrop';
 import Footer from './components/Footer';
 import LenisScroll from './components/lenis';
+import { Route, Routes } from 'react-router-dom';
+import Plans from './pages/Plans';
+import Generator from './pages/Generator';
+import Result from './pages/Result';
+import MyGenerations from './pages/MyGenerations';
+import Community from './pages/Community';
+import Loading from './pages/Loading';
+
 
 function App() {
 	return (
@@ -10,7 +18,19 @@ function App() {
 			<SoftBackdrop />
 			<LenisScroll />
 			<Navbar />
-			<Home />
+
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/generator" element={<Generator />} />
+				<Route path="/result/:projectId" element={<Result />} />
+				<Route path="/my-generations" element={<MyGenerations />} />
+				<Route path="/plans" element={<Plans />} />
+				<Route path="/community" element={<Community />} />
+				<Route path="/loading" element={<Loading />} />
+				<Home />
+			</Routes>
+			
+
 			<Footer />
 		</>
 	);
