@@ -1,6 +1,8 @@
 import { useState } from "react";
 import Title from "../components/Title";
 import UploadZone from "../components/UploadZone";
+import { RectangleVerticalIcon } from "lucide-react";
+import { RectangleHorizontalIcon } from "lucide-react";
 
 const Generator = () => {
 
@@ -89,7 +91,7 @@ const Generator = () => {
                 placeholder="Enter product name" required/>
             </div>
 
-            <div className="mb-4">
+            <div className="mb-4 text-gray-300">
               <label htmlFor="productDescription" className="block text-sm mb-4">
                 Product Description
                 <span className="text-xs text-violet-400 ">(optional)</span>
@@ -104,6 +106,30 @@ const Generator = () => {
                 placeholder="Enter product description"
               />
             </div>
+
+            <div className="mb-4 text-gray-300">
+  <label className="block text-sm mb-4">Aspect Ratio</label>
+
+  <div className="flex gap-3">
+    <RectangleVerticalIcon
+      onClick={() => setAspectRatio('9:16')}
+      className={`p-2.5 size-13 bg-white/6 rounded transition-all ring-2 ring-transparent cursor-pointer ${
+        aspectRatio === '9:16'
+          ? 'ring-violet-500/50 bg-white/10'
+          : ''
+      }`}
+    />
+
+    <RectangleHorizontalIcon
+      onClick={() => setAspectRatio('16:9')}
+      className={`p-2.5 size-13 bg-white/6 rounded transition-all ring-2 ring-transparent cursor-pointer ${
+        aspectRatio === '16:9'
+          ? 'ring-violet-500/50 bg-white/10'
+          : ''
+      }`}
+    />
+  </div>
+</div>
             <p>right col</p>
           </div>
         </div>
