@@ -88,6 +88,22 @@ const Generator = () => {
                 className="w-full bg-white/3 rounded-lg border-2 p-4 text-sm border-violet-200/10 focus:border-violet-500/50 outline-none transition-all"
                 placeholder="Enter product name" required/>
             </div>
+
+            <div className="mb-4">
+              <label htmlFor="productDescription" className="block text-sm mb-4">
+                Product Description
+                <span className="text-xs text-violet-400 ">(optional)</span>
+              </label>
+              <textarea
+                id="productDescription"
+                rows={4}
+                value={productDescription}
+                onChange={(e) => setProductDescription(e.target.value)}
+                className="w-full bg-white/3 rounded-lg border-2 p-4 text-sm border-violet-200/10 focus:border-violet-500/50 
+                resize-none outline-none transition-all"
+                placeholder="Enter product description"
+              />
+            </div>
             <p>right col</p>
           </div>
         </div>
