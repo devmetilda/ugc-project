@@ -134,6 +134,16 @@ const ProjectCard = ({
               </div>
             </div>
           )}
+
+          {/* USER PROMPT */}
+          {gen.userPrompt && (
+            <div className="mt-3">
+              <div className="text-xs text-gray-300 ">
+                {gen.userPrompt}
+              </div>
+            </div>
+          )}
+
         </div>
       </div>
     </div>
