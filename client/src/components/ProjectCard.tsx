@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Project } from "../types";
 import { Loader2Icon, PlaySquareIcon, EllipsisIcon, ImageIcon, Share2Icon, Trash2Icon } from "lucide-react";
+import { PrimaryButton, GhostButton } from "./Buttons"; // Rectified: Added missing button imports here
 
 const ProjectCard = (
   {
@@ -193,6 +194,28 @@ const ProjectCard = (
             <div className="mt-3">
               <p className="text-xs text-gray-400 mb-1">Description</p>
               <div className="text-xs text-gray-300">{gen.userPrompt}</div>
+            </div>
+          )}
+
+          {/* buttons */}
+          {!forCommunity && (
+            <div className="mt-4 grid grid-cols-2 gap-3">
+              <GhostButton
+                className="text-xs justify-center"
+                onClick={() => {
+                  navigate(`/result/${gen.id}`);
+                  window.scrollTo(0, 0); // Rectified: Added global window namespace indicator
+                }}
+              >
+                View Details
+              </GhostButton>
+
+              <PrimaryButton
+                onClick={() => togglePublish(gen.id)}
+                className="rounded-md"
+              >
+                {gen.isPublished ? "Unpublish" : "Publish"}
+              </PrimaryButton>
             </div>
           )}
         </div>
