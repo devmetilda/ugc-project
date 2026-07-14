@@ -28,7 +28,7 @@ export interface Project {
   isGenerating?: boolean;
   isPublished?: boolean;
   error?: string;
-  createdAt?: Date | string;
-  updatedAt?: Date | string;
+  createdAt: Date | string;
+updatedAt: Date | string;
   uploadedImages: string[];
 }
