@@ -17,7 +17,7 @@ const MyGenerations = () => {
   };
 
   useEffect(() => {
-    fetchMyGenerations();
+    fetchMyGenerations()
   }, []);
 
   return loading ? (

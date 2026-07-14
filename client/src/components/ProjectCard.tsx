@@ -1,8 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { Project } from "../types";
-import { Loader2Icon } from "lucide-react";
-
+import { Loader2Icon, PlaySquareIcon, EllipsisIcon, ImageIcon, Share2Icon, Trash2Icon } from "lucide-react";
 
 const ProjectCard = (
   {
@@ -19,9 +18,19 @@ const ProjectCard = (
   const [menuOpen, setMenuOpen] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
+  const handleDelete = async (id: string)=>{
+    const confirm = window.confirm('Are you sure you want to delete this project?');
+    if(!confirm) return;
+    console.log(id)
+  }
+
+  const togglePublish = async (projectId: string)=>{
+    console.log(projectId)
+  }
+
   return (
     <div key={gen.id} className="mb-4 break-inside-avoid">
-      <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition group">
+      <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition group relative">
         {/* preview */}
         <div
           className={`${
@@ -62,23 +71,91 @@ const ProjectCard = (
 
           {(!gen?.generatedImage && !gen?.generatedVideo) && (
             <div className="absolute inset-0 w-full h-full flex flex-col items-center justify-center bg-black/20">
-              <Loader2Icon className="size-7 animate-spin"/>
-              </div>
+              <Loader2Icon className="size-7 animate-spin text-white"/>
+            </div>
           )}
 
           {/* status badges */}
-          <div className="absolute left-3 top-3 flex gap-2 items-center">
+          <div className="absolute left-3 top-3 flex gap-2 items-center z-20">
             {gen.isGenerating && (
-              <span className="text-xs px-2 py-1 bg-yellow-600/30 rounded-full">Generating</span>
+              <span className="text-xs px-2 py-1 bg-yellow-600/30 text-white rounded-full">Generating</span>
             )}
 
             {gen.isPublished && (
-              <span className="text-xs px-2 py-1 bg-green-600/30 rounded-full">Published</span>
+              <span className="text-xs px-2 py-1 bg-green-600/30 text-white rounded-full">Published</span>
             )}
           </div>
 
+          {/* Action Menu for my generations only */}
+          {!forCommunity && (
+            <div
+              onMouseEnter={() => setMenuOpen(true)}
+              onMouseLeave={() => setMenuOpen(false)}
+              className="absolute right-3 top-3 z-30 flex flex-col items-end"
+            >
+              <button 
+                type="button"
+                className="bg-black/65 hover:bg-black/80 text-white rounded-full p-1.5 backdrop-blur transition border border-white/10 cursor-pointer"
+              >
+                <EllipsisIcon className="size-5" />
+              </button>
+
+              <ul
+                className={`text-xs ${
+                  menuOpen ? "block" : "hidden"
+                } w-40 bg-black/85 backdrop-blur text-white border border-white/10 rounded-lg shadow-md mt-1 py-1`}
+              >
+                {gen.generatedImage && (
+                  <li>
+                    <a
+                      href="#" 
+                      download
+                      className="flex gap-2 items-center px-4 py-2 hover:bg-white/10 cursor-pointer text-white"
+                    >
+                      <ImageIcon className="size-3.5" />
+                      <span>Download Image</span>
+                    </a>
+                  </li>
+                )}
+
+                {gen.generatedVideo && (
+                  <li>
+                    <a
+                      href="#" 
+                      download
+                      className="flex gap-2 items-center px-4 py-2 hover:bg-white/10 cursor-pointer text-white"
+                    >
+                      <PlaySquareIcon className="size-3.5" />
+                      <span>Download Video</span>
+                    </a>
+                  </li>
+                )}
+
+                {(gen.generatedVideo && gen.generatedImage) && (
+                  <li>
+                    <button 
+                      onClick={() => navigator.share({url: gen.generatedVideo || gen.generatedImage, title: gen.productName, text: gen.productDescription})}
+                      className="w-full flex gap-2 items-center px-4 py-2 hover:bg-white/10 cursor-pointer text-white text-left"
+                    >
+                      <Share2Icon className="size-3.5"/> <span>Share</span>
+                    </button>
+                  </li>
+                )}
+
+                <li>
+                  <button 
+                    onClick={() => handleDelete(gen.id)}
+                    className="w-full flex gap-2 items-center px-4 py-2 hover:bg-red-950/20 text-red-400 cursor-pointer text-left"
+                  >
+                    <Trash2Icon className="size-3.5"/> <span>Delete</span>
+                  </button>
+                </li>
+              </ul>
+            </div>
+          )}
+
           {/* source images */}
-          <div className="absolute right-3 bottom-3">
+          <div className="absolute right-3 bottom-3 z-20">
             <img src={gen.uploadedImages[0]} alt="product" className="w-16 h-16 object-cover rounded-full animate-float "/>
             <img src={gen.uploadedImages[1]} alt="model" className="w-16 h-16 object-cover rounded-full animate-float -ml-8" style={{animationDelay: '3s'}}/>
           </div>
@@ -96,23 +173,28 @@ const ProjectCard = (
               )}
             </div>
 
-          <div className="text-right">
-            <div className="mt-2 flex flex-col items-end gap-1">
-              <span className="text-xs px-2 py-1 bg-white/5 rounded-full">Aspect: {gen.aspectRatio}</span>
+            <div className="text-right">
+              <div className="mt-2 flex flex-col items-end gap-1">
+                <span className="text-xs px-2 py-1 bg-white/5 rounded-full">Aspect: {gen.aspectRatio}</span>
+              </div>
             </div>
           </div>
-          </div>
 
-             {/* product description */}
-             {gen.productDescription && (
-              <div className="mt-3">
-                <p className="text-xs text-gray-400 mb-1">Description</p>
-                <div className="text-sm text-gray-300 bg-white/3 p-2 rounded-md wrap-break-word">{gen.productDescription}</div>
+          {/* product description */}
+          {gen.productDescription && (
+            <div className="mt-3">
+              <p className="text-xs text-gray-400 mb-1">Description</p>
+              <div className="text-sm text-gray-300 bg-white/3 p-2 rounded-md wrap-break-word">{gen.productDescription}</div>
+            </div>
+          )}
 
-
-                </div>
-             )}
-
+          {/* user prompt */}
+          {gen.userPrompt && (
+            <div className="mt-3">
+              <p className="text-xs text-gray-400 mb-1">Description</p>
+              <div className="text-xs text-gray-300">{gen.userPrompt}</div>
+            </div>
+          )}
         </div>
       </div>
     </div>
