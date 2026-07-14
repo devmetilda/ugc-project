@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import type { Project } from "../types";
 import { Loader2Icon } from "lucide-react";
 import ProjectCard from "../components/ProjectCard";
-import { PrimaryButton } from "../components/Buttons";
 import { dummyGenerations } from "../assets/assets";
 
 const MyGenerations = () => {
@@ -17,7 +16,7 @@ const MyGenerations = () => {
   };
 
   useEffect(() => {
-    fetchMyGenerations()
+    fetchMyGenerations();
   }, []);
 
   return loading ? (
@@ -43,7 +42,7 @@ const MyGenerations = () => {
               key={gen.id}
               gen={gen}
               setGenerations={setGenerations}
-              forCommunity={true}
+              forCommunity={false}
             />
           ))}
         </div>
@@ -59,11 +58,11 @@ const MyGenerations = () => {
             </p>
 
             <button
-  onClick={() => (window.location.href = "/generate")}
-  className="mt-6 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-medium transition"
->
-  Create New Generation
-</button>
+              onClick={() => (window.location.href = "/generate")}
+              className="mt-6 px-6 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg font-medium transition"
+            >
+              Create New Generation
+            </button>
           </div>
         )}
       </div>

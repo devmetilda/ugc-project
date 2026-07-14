@@ -22,14 +22,14 @@ const ProjectCard = (
     const confirm = window.confirm('Are you sure you want to delete this project?');
     if(!confirm) return;
     console.log(id)
-  }
+  };
 
   const togglePublish = async (projectId: string)=>{
     console.log(projectId)
-  }
+  };
 
   return (
-    <div key={gen.id} className="mb-4 break-inside-avoid">
+    <div className="mb-4 break-inside-avoid">
       <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden hover:border-white/20 transition group relative">
         {/* preview */}
         <div
@@ -91,19 +91,19 @@ const ProjectCard = (
             <div
               onMouseEnter={() => setMenuOpen(true)}
               onMouseLeave={() => setMenuOpen(false)}
-              className="absolute right-3 top-3 z-30 flex flex-col items-end"
+              className="absolute right-3 top-3 z-30 flex flex-col items-end sm:opacity-0 group-hover:opacity-100 transition duration-200"
             >
               <button 
                 type="button"
-                className="bg-black/65 hover:bg-black/80 text-white rounded-full p-1.5 backdrop-blur transition border border-white/10 cursor-pointer"
+                className="bg-black/60 hover:bg-black/80 text-white rounded-full p-2 backdrop-blur transition border border-white/10 flex items-center justify-center cursor-pointer"
               >
-                <EllipsisIcon className="size-5" />
+                <EllipsisIcon className="size-5 text-white" />
               </button>
 
               <ul
                 className={`text-xs ${
                   menuOpen ? "block" : "hidden"
-                } w-40 bg-black/85 backdrop-blur text-white border border-white/10 rounded-lg shadow-md mt-1 py-1`}
+                } w-40 bg-black/90 backdrop-blur text-white border border-white/10 rounded-lg shadow-xl mt-1 py-1`}
               >
                 {gen.generatedImage && (
                   <li>
