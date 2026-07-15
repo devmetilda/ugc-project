@@ -32,72 +32,85 @@ const Result = () => {
       <Loader2Icon className="size-9 animate-spin text-indigo-500" />
     </div>
   ) : (
-    <div className="min-h-screen text-white p-6 md:p-12 mt-20">
-      <div className="max-w-6xl mx-auto">
-        <header className="flex justify-between items-center mb-8">
-          <h1 className="text-2xl md:text-3xl font-medium">
+    <div className="min-h-screen mt-20 p-6 text-white md:p-12">
+      <div className="mx-auto max-w-7xl">
+        {/* Header */}
+        <header className="mb-8 flex items-center justify-between">
+          <h1 className="text-2xl font-medium md:text-3xl">
             Generation Result
           </h1>
 
           <Link
             to="/generate"
-            className="btn-secondary text-sm flex items-center gap-2"
+            className="btn-secondary flex items-center gap-2 text-sm"
           >
-            <RefreshCwIcon className="w-4 h-4" />
+            <RefreshCwIcon className="h-4 w-4" />
             <p className="max-sm:hidden">New Generation</p>
           </Link>
         </header>
 
-        {/* grid layout */}
-        <div className="grid lg:grid-cols-3 gap-8">
-          {/* Main Result Display */}
-          <div className="glass-panel inline-block p-2 rounded-2xl">
-            <div
-              className={`${
-                project?.aspectRatio === "9:16"
-                  ? "aspect-[9/16]"
-                  : "aspect-video"
-              } sm:max-h-[800px] rounded-xl bg-gray-900 overflow-hidden relative`}
-            >
-              {project?.generatedVideo ? (
-                <video
-                  src={project.generatedVideo}
-                  controls
-                  autoPlay
-                  loop
-                  className="w-full h-full object-cover"
-                />
-              ) : (
-                <img
-                  src={project.generatedImage}
-                  alt="Generated Result"
-                  className="w-full h-full object-cover"
-                />
-              )}
+        {/* Grid */}
+        <div className="grid items-start gap-8 lg:grid-cols-3">
+
+          {/* LEFT SIDE */}
+          <div className="lg:col-span-2">
+            <div className="glass-panel w-fit rounded-2xl p-2">
+              <div
+                className={`${
+                  project?.aspectRatio === "9:16"
+                    ? "aspect-[9/16]"
+                    : "aspect-video"
+                } relative overflow-hidden rounded-xl bg-gray-900 sm:max-h-[800px]`}
+              >
+                {project.generatedVideo ? (
+                  <video
+                    src={project.generatedVideo}
+                    controls
+                    autoPlay
+                    loop
+                    className="h-full w-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={project.generatedImage}
+                    alt="Generated Result"
+                    className="h-full w-full object-cover"
+                  />
+                )}
+              </div>
             </div>
           </div>
 
-          {/* Sidebar Actions */}
-          <div className="space-y-6">
-            {/* download buttons */}
-            <div className="glass-panel p-6 rounded-2xl">
-              <h3 className="text-xl font-semibold mb-4">Actions</h3>
+          {/* RIGHT SIDE */}
+          <div className="space-y-6 self-start">
+
+            {/* Actions */}
+            <div className="glass-panel rounded-2xl p-6">
+              <h3 className="mb-4 text-xl font-semibold">
+                Actions
+              </h3>
 
               <div className="flex flex-col gap-3">
-                <a href={project.generatedImage || "#"} download>
+                <a
+                  href={project.generatedImage || "#"}
+                  download
+                >
                   <GhostButton
                     disabled={!project.generatedImage}
-                    className="w-full justify-center rounded-md py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full justify-center rounded-md py-3 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <ImageIcon className="size-4.5" />
                     Download Image
                   </GhostButton>
                 </a>
 
-                <a href={project.generatedVideo || "#"} download>
+                <a
+                  href={project.generatedVideo || "#"}
+                  download
+                >
                   <GhostButton
                     disabled={!project.generatedVideo}
-                    className="w-full justify-center rounded-md py-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full justify-center rounded-md py-3 disabled:cursor-not-allowed disabled:opacity-50"
                   >
                     <VideoIcon className="size-4.5" />
                     Download Video
@@ -105,9 +118,8 @@ const Result = () => {
                 </a>
               </div>
             </div>
-
-            {/* generate video button */}
-            <div></div>
+                        {/* Generate Video */}
+            
           </div>
         </div>
       </div>
