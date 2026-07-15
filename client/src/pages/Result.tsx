@@ -4,6 +4,7 @@ import {
   RefreshCwIcon,
   ImageIcon,
   VideoIcon,
+  SparkleIcon
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -22,6 +23,10 @@ const Result = () => {
       setLoading(false);
     }, 3000);
   };
+
+  const handleGenerateVideo = async ()=>{
+    setIsGenerating(true)
+  }
 
   useEffect(() => {
     fetchProjectData();
@@ -134,11 +139,15 @@ const Result = () => {
   </p>
 
   {!project.generatedVideo ? (
-    <PrimaryButton>
-      Generate Video
+    <PrimaryButton onClick={handleGenerateVideo} disabled={isGenerating} className="w-full">
+      {isGenerating ? (
+        <>Generating Video...</>
+      ) : (
+        <><SparkleIcon className="size-4"/> Generate Video</>
+      )}
     </PrimaryButton>
   ) : (
-    <div>
+    <div className="p-3 bg-green-500/10  border border-green-500/20 rouned-xl text-green-400 text-center text-sm font-medium">
       Video Generated Successfully!
     </div>
   )}
