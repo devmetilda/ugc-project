@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Loader2Icon } from "lucide-react";
+import { Loader2Icon, RefreshCwIcon } from "lucide-react";
+import { Link } from "react-router-dom";
+
 import type { Project } from "../types";
 import { dummyGenerations } from "../assets/assets";
-import { useNavigate, useParams } from "react-router-dom";
+
 
 const Result = () => {
   const [project, setProjectData] = useState<Project>({} as Project);
@@ -25,9 +27,19 @@ const Result = () => {
       <Loader2Icon className="size-9 animate-spin text-indigo-500" />
     </div>
   ) : (
-    <div>
+    <div className="min-h-screen text-white p-6 md:p-12 mt-20">
+    <div className="max-w-6xl mx-auto">
+      <header>
+        <h1>Generation Result</h1>
+        <Link to="/generate" className="btn-secondary text-sm flex items-center gap-2">
+        <RefreshCwIcon className="w-4 h-4" />
+        <p className="max-sm:hidden">New Generation</p>
+        </Link>
+              </header>
     </div>
+  </div>
   );
 };
+
 
 export default Result;
