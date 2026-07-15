@@ -29,8 +29,8 @@ const Result = () => {
   ) : (
     <div className="min-h-screen text-white p-6 md:p-12 mt-20">
     <div className="max-w-6xl mx-auto">
-      <header>
-        <h1>Generation Result</h1>
+      <header className="flex justify-between items-center mb-8">
+        <h1 className="text-2xl md:text-3xl  font-medium">Generation Result</h1>
         <Link to="/generate" className="btn-secondary text-sm flex items-center gap-2">
         <RefreshCwIcon className="w-4 h-4" />
         <p className="max-sm:hidden">New Generation</p>
