@@ -53,32 +53,32 @@ export default function Navbar() {
                             Credits:
                         </GhostButton>
                         <UserButton>
-                            <UserButton.Action
-  label='Generate'
-  labelIcon={<SparkleIcon size={14} />}
-  onClick={() => navigate('/generate')}
-/>
+  <UserButton.MenuItems>
+    <UserButton.Action
+      label="Generate"
+      labelIcon={<SparkleIcon size={14} />}
+      onClick={() => navigate("/generator")}
+    />
 
-<UserButton.Action
-  label='My Generations'
-  labelIcon={<FolderEditIcon size={14} />}
-  onClick={() => navigate('/my-generations')}
-/>
+    <UserButton.Action
+      label="My Generations"
+      labelIcon={<FolderEditIcon size={14} />}
+      onClick={() => navigate("/my-generations")}
+    />
 
-<UserButton.Action
-  label='Community'
-  labelIcon={<GalleryHorizontalEnd size={14} />}
-  onClick={() => navigate('/community')}
-/>
+    <UserButton.Action
+      label="Community"
+      labelIcon={<GalleryHorizontalEnd size={14} />}
+      onClick={() => navigate("/community")}
+    />
 
-<UserButton.Action
-  label='Plans'
-  labelIcon={<DollarSignIcon size={14} />}
-  onClick={() => navigate('/plans')}
-/>
-
-
-                        </UserButton>
+    <UserButton.Action
+      label="Plans"
+      labelIcon={<DollarSignIcon size={14} />}
+      onClick={() => navigate("/plans")}
+    />
+  </UserButton.MenuItems>
+</UserButton>
                     </div>
                 ) }
 
