@@ -82,11 +82,16 @@ export default function Navbar() {
                     </div>
                 ) }
 
+                {!user && <button onClick={() => setIsOpen(!isOpen)}
+                className='md:hidden'>
+                     <MenuIcon className='size-6' />
+                    </button>
+                    }
                 
 
-                <button onClick={() => setIsOpen(!isOpen)} className='md:hidden'>
-                    <MenuIcon className='size-6' />
-                </button>
+                
+
+                
             </div>
             <div className={`flex flex-col items-center justify-center gap-6 text-lg font-medium fixed inset-0 bg-black/40 backdrop-blur-md z-50 transition-all duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`}>
                 {navLinks.map((link) => (
