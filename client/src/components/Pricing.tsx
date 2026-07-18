@@ -1,5 +1,5 @@
 import Title from './Title';
-import { PricingTable } from '@clerk/clerk-react';
+import { PricingTable } from "@clerk/clerk-react";
 
 
 export default function Pricing() {
