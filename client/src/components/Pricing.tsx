@@ -15,7 +15,6 @@ export default function Pricing() {
 
                 <div className="flex flex-wrap items-center justify-center max-w-5xl mx-auto">
                    <PricingTable />
-
                 </div>
             </div>
         </section>
