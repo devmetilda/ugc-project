@@ -14,8 +14,19 @@ export default function Pricing() {
                 />
 
                 <div className="flex flex-wrap items-center justify-center max-w-5xl mx-auto">
-                   <PricingTable />
-                </div>
+  <PricingTable
+    appearance={{
+      variables: {
+        colorBackground: 'none',
+      },
+      elements: {
+        pricingTableCardBody: 'bg-white/6',
+        pricingTableCardHeader: 'bg-white/10',
+        switchThumb: 'bg-white',
+      },
+    }}
+  />
+</div>
             </div>
         </section>
     );
