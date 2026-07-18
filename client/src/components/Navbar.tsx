@@ -88,7 +88,7 @@ export default function Navbar() {
                     </button>
                     }
                 
-
+ 
                 
 
                 
@@ -100,10 +100,10 @@ export default function Navbar() {
                     </a>
                 ))}
 
-                <button onClick={() => setIsOpen(false)} className='font-medium text-gray-300 hover:text-white transition'>
+                <button onClick={() => {setIsOpen(false), openSignIn()}} className='font-medium text-gray-300 hover:text-white transition'>
                     Sign in
                 </button>
-                <PrimaryButton onClick={() => setIsOpen(false)}>Get Started</PrimaryButton>
+                <PrimaryButton onClick={() => {setIsOpen(false), openSignUp()}}>Get Started</PrimaryButton>
 
                 <button
                     onClick={() => setIsOpen(false)}
