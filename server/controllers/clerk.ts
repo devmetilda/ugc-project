@@ -24,21 +24,84 @@ const clerkWebhooks = async (req: Request, res: Response) => {
         break;
       }
 
+      case "user.updated": {
+        await prisma.user.update({
+        where:{
+            id: data.id
+        },
+          data: {
+            email: data.email_addresses[0]?.email_address,
+            name: `${data.first_name} ${data.last_name}`,
+            image: data.image_url,
+          },
+        });
+
+        break;
+      }
+
+
+      case "user.deleted": {
+        await prisma.user.delete({
+          where : {
+            id: data.id 
+          }
+          
+        });
+
+        break;
+      }
+
+      case "paymentAttempt.updated": {
+  if (
+    (data.charge_type === "recurring" ||
+      data.charge_type === "checkout") &&
+    data.status === "paid"
+  ) {
+    const credits = {
+      pro: 80,
+      premium: 240,
+    };
+
+    const clerkUserId = data?.payer?.user_id;
+
+    const planId: keyof typeof credits =
+      data?.subscription_items?.[0]?.plan?.slug;
+
+    if (planId !== "pro" && planId !== "premium") {
+      return res.status(400).json({
+        message: "Invalid plan",
+      });
+    }
+
+    console.log(planId);
+
+    await prisma.user.update({
+      where: {
+        id: clerkUserId
+      },
+      data: {
+        credits: {
+          increment: credits[planId],
+        },
+      },
+  });
+  }
+
+  break;
+}
+
+
       default:
         break;
     }
 
-    return res.status(200).json({
-      success: true,
-      message: "Webhook processed successfully",
-    });
-  } catch (error) {
-    console.error("Webhook Error:", error);
+    res.json({message: "Webhook Recieved : " + type})
 
-    return res.status(500).json({
-      success: false,
-      message: "Webhook processing failed",
-    });
+    
+  } catch (error: any) {
+     
+
+      res.status(500).json({ message: error.message })
   }
 };
 
