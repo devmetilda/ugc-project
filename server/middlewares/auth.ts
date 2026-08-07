@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/node"
 import { Request, Response, NextFunction } from 'express';
 
 export const protect = async (req: Request, res: Response, next: NextFunction)=>{
@@ -11,6 +12,7 @@ export const protect = async (req: Request, res: Response, next: NextFunction)=>
         
 
     } catch (error: any) {
+        Sentry.captureException(error)
         res.status(401).json({message: error.code || error.message})
     }
 
